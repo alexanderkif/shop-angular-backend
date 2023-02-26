@@ -8,7 +8,7 @@ import productsMock from './productsMock';
 const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async () => {
   const products = await Promise.resolve(productsMock);
 
-  return formatJSONResponse({products});
+  return formatJSONResponse(products);
 };
 
 export const main = middyfy(getProductsList);

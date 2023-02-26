@@ -1,63 +1,73 @@
 const products = [
   {
     id: "1",
-    name: 'Art 1',
-    image: 'https://picsum.photos/300',
-    price: 200
+    title: 'Art 1',
+    description: 'https://picsum.photos/300',
+    price: 200,
+    count: 7
   },
   {
     id: "2",
-    name: 'Art 2',
-    image: 'https://picsum.photos/300',
-    price: 310
+    title: 'Art 2',
+    description: 'https://picsum.photos/300',
+    price: 310,
+    count: 7
   },
   {
     id: "3",
-    name: 'Art 3',
-    image: 'https://picsum.photos/300',
-    price: 50
+    title: 'Art 3',
+    description: 'https://picsum.photos/300',
+    price: 50,
+    count: 7
   },
   {
     id: "4",
-    name: 'Art 4',
-    image: 'https://picsum.photos/300',
-    price: 190
+    title: 'Art 4',
+    description: 'https://picsum.photos/300',
+    price: 190,
+    count: 7
   },
   {
     id: "5",
-    name: 'Art 5',
-    image: 'https://picsum.photos/300',
-    price: 360
+    title: 'Art 5',
+    description: 'https://picsum.photos/300',
+    price: 360,
+    count: 7
   },
   {
     id: "6",
-    name: 'Art 6',
-    image: 'https://picsum.photos/300',
-    price: 250
+    title: 'Art 6',
+    description: 'https://picsum.photos/300',
+    price: 250,
+    count: 7
   },
   {
     id: "7",
-    name: 'Art 7',
-    image: 'https://picsum.photos/300',
-    price: 10
+    title: 'Art 7',
+    description: 'https://picsum.photos/300',
+    price: 10,
+    count: 7
   },
   {
     id: "8",
-    name: 'Art 8',
-    image: 'https://picsum.photos/300',
-    price: 990
+    title: 'Art 8',
+    description: 'https://picsum.photos/300',
+    price: 990,
+    count: 7
   },
   {
     id: "9",
-    name: 'Art 9',
-    image: 'https://picsum.photos/300',
-    price: 770
+    title: 'Art 9',
+    description: 'https://picsum.photos/300',
+    price: 770,
+    count: 7
   },
   {
     id: "10",
-    name: 'Art 10',
-    image: 'https://picsum.photos/300',
-    price: 830
+    title: 'Art 10',
+    description: 'https://picsum.photos/300',
+    price: 830,
+    count: 7
   },
 ]
 

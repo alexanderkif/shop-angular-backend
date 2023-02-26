@@ -9,9 +9,7 @@ const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async
   const products = await Promise.resolve(productsMock);
   const product = products.find(p => p.id === event.pathParameters.id);
 
-  return formatJSONResponse({
-    product
-  });
+  return formatJSONResponse(product);
 };
 
 export const main = middyfy(getProductsById);

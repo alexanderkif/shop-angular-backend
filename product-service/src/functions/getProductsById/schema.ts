@@ -2,9 +2,10 @@ export default {
   type: "object",
   properties: {
     id: {type: "number"},
-    name: {type: "string"},
-    image: {type: "string"},
-    price: {type: "number"}
+    title: {type: "string"},
+    description: {type: "string"},
+    price: {type: "number"},
+    count: {type: "number"}
   },
-  required: ['name']
+  required: ['title']
 } as const;
