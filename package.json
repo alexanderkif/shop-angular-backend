@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "swagger:s3": "serverless deploy",
+    "swagger:deploy": "serverless syncToS3",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/alexanderkif/shop-angular-backend/issues"
   },
-  "homepage": "https://github.com/alexanderkif/shop-angular-backend#readme"
+  "homepage": "https://github.com/alexanderkif/shop-angular-backend#readme",
+  "dependencies": {
+    "serverless-single-page-app-plugin": "^1.0.4"
+  }
 }
