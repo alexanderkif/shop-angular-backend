@@ -6,9 +6,13 @@ import schema from './schema';
 import productsMock from './productsMock';
 
 const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async () => {
-  const products = await Promise.resolve(productsMock);
+  try {
+    const products = await Promise.resolve(productsMock);
 
-  return formatJSONResponse(products);
+    return formatJSONResponse(products, 200);
+  } catch (error) {
+    return formatJSONResponse(error, 500);
+  }
 };
 
 export const main = middyfy(getProductsList);
