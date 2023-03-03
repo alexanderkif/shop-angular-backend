@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "dev-product-service",
+    "version": "2023-02-26 11:56:23UTC"
+  },
+  "servers": [
+    {
+      "url": "https://sgvz5ygvqk.execute-api.eu-west-1.amazonaws.com/{basePath}",
+      "variables": {
+        "basePath": {
+          "default": ""
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "Default response for GET /products"
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "payloadFormatVersion": "2.0",
+          "type": "aws_proxy",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:217207174269:function:product-service-dev-getProductsList/invocations",
+          "connectionType": "INTERNET",
+          "timeoutInMillis": 30000
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "Default response for GET /products/{id}"
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "payloadFormatVersion": "2.0",
+          "type": "aws_proxy",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:217207174269:function:product-service-dev-getProductsById/invocations",
+          "connectionType": "INTERNET",
+          "timeoutInMillis": 30000
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Generated path parameter for id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "x-amazon-apigateway-importexport-version": "1.0"
+}

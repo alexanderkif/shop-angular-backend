@@ -1,0 +1,24 @@
+{
+  "name": "shop-angular-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "swagger:s3": "serverless deploy",
+    "swagger:deploy": "serverless syncToS3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderkif/shop-angular-backend.git"
+  },
+  "author": "alexander_kif@mail.ru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderkif/shop-angular-backend/issues"
+  },
+  "homepage": "https://github.com/alexanderkif/shop-angular-backend#readme",
+  "dependencies": {
+    "serverless-single-page-app-plugin": "^1.0.4"
+  }
+}
