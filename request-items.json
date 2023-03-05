@@ -1,0 +1,42 @@
+{
+    "art_shop_products": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "19ba3d6a-f8ed-491b-a192-0a33b71b38c1"},
+                    "title": {"S": "Art title 1"},
+                    "description": {"S": "Art description 1"},
+                    "price": {"N": "300"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "19ba3d6a-f8ed-491b-a192-0a33b71b38c2"},
+                    "title": {"S": "Art title 2"},
+                    "description": {"S": "Art description 2"},
+                    "price": {"N": "220"}
+                }
+            }
+        }
+    ],
+    "art_shop_stocks": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "product_id": {"S": "19ba3d6a-f8ed-491b-a192-0a33b71b38c1"},
+                    "count": {"N": "3"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "product_id": {"S": "19ba3d6a-f8ed-491b-a192-0a33b71b38c2"},
+                    "count": {"N": "7"}
+                }
+            }
+        }
+    ]
+}

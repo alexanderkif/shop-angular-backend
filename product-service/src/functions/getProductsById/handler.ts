@@ -1,18 +1,27 @@
+import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
+import { ddbDocClient } from "@libs/ddbDocClient";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
+
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import productsMock from '../getProductsList/productsMock';
 
 import schema from './schema';
 
-const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  try {
-    const products = await Promise.resolve(productsMock);
-    const product = products.find(p => p.id === event.pathParameters.id);
+const productsTable = process.env.PRODUCTS_TABLE;
 
-    if (!product) {
+const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+  console.log('getProductsById event:', JSON.stringify(event));
+  try {
+    const productsData = await ddbDocClient.send(new ExecuteStatementCommand({
+      Statement: `SELECT * FROM ${productsTable} WHERE "id" = '${event.pathParameters.id}'`
+    }));
+
+    if (!productsData?.Items[0]) {
       return formatJSONResponse('Product not found', 404);
     }
+    const product = unmarshall(productsData.Items[0]);
+
     return formatJSONResponse(product, 200);
   } catch (error) {
     return formatJSONResponse(error, 500);
