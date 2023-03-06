@@ -9,6 +9,7 @@ import { middyfy } from '@libs/lambda';
 import schema from './schema';
 
 const productsTable = process.env.PRODUCTS_TABLE;
+const stocksTable = process.env.STOCKS_TABLE;
 
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   console.log('getProductsById event:', JSON.stringify(event));
@@ -22,7 +23,12 @@ const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async
     }
     const product = unmarshall(productsData.Items[0]);
 
-    return formatJSONResponse(product, 200);
+    const stocksData = await ddbDocClient.send(new ExecuteStatementCommand({
+      Statement: `SELECT * FROM ${stocksTable} WHERE "product_id" = '${product.id}'`
+    }));
+    product.count = unmarshall(stocksData.Items[0])?.count || 0;
+
+    return formatJSONResponse({product}, 200);
   } catch (error) {
     return formatJSONResponse(error, 500);
   }
