@@ -7,4 +7,4 @@ export default {
     price: {type: "Number"},
     count: {type: "Number"}
   }
-};
+} as const;
