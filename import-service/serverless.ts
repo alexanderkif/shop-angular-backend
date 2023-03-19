@@ -18,6 +18,7 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      SQS_URL: 'https://sqs.eu-west-1.amazonaws.com/217207174269/s3ArtCatalogItemsQueue',
     },
     iamRoleStatements: [
       {
@@ -29,6 +30,11 @@ const serverlessConfiguration: AWS = {
         Effect: 'Allow',
         Action: ['s3:*'],
         Resource: ['arn:aws:s3:::s3-art-import/*']
+      },
+      {
+        Effect: 'Allow',
+        Action: ['sqs:*'],
+        Resource: 'arn:aws:sqs:eu-west-1:217207174269:s3ArtCatalogItemsQueue'
       }
     ]
   },
