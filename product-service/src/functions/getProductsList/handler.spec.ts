@@ -1,6 +1,8 @@
 import { main } from './handler';
 import productMock from './productsMock';
 import { APIGatewayProxyEvent } from 'aws-lambda';
+import { ddbDocClient } from '@libs/ddbDocClient';
+import { marshall } from "@aws-sdk/util-dynamodb";
 
 const eventTemplate: APIGatewayProxyEvent = {
   body: '',
@@ -25,11 +27,15 @@ jest.mock('@middy/core', () => {
   }
 })
 
+ddbDocClient.send = jest.fn().mockReturnValue(
+  {Items: productMock.map(i => ({...i, product_id: i.id})).map(i => marshall(i))}
+);
+
 describe('API getProductsList', () => {
   it('should return list of products', async () => {
     const actual = await main({...eventTemplate, rawBody: ''}, null);
     const expected = {
-      body: JSON.stringify(productMock),
+      body: JSON.stringify(productMock.map(i => ({...i, product_id: i.id}))),
       statusCode: 200
     };
 

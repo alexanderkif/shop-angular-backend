@@ -1,7 +1,10 @@
-import { S3Client, CopyObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import { formatJSONResponse } from '@libs/api-gateway';
 import { S3Event } from 'aws-lambda';
-import { Readable } from "stream";
+import { Readable } from 'stream';
+import { S3Client, CopyObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { SendMessageCommand } from  '@aws-sdk/client-sqs';
+import { formatJSONResponse } from '@libs/api-gateway';
+import { sqsClient } from  '@libs/sqsClient';
+import { Product } from '@libs/interfaces';
 
 const csv = require('csv-parser');
 
@@ -11,6 +14,8 @@ const CATALOG_UPLOADED_PATH = 'uploaded/';
 const CATALOG_PARSED_PATH = 'parsed/';
 
 export const importFileParser: any = async (event: S3Event ) => {
+  console.log('importFileParser event:', event);
+
   const client = new S3Client({ region: REGION });
   for (const record of event.Records) {
     const fileKey = record?.s3?.object?.key;
@@ -22,13 +27,23 @@ export const importFileParser: any = async (event: S3Event ) => {
       });
       const response = await client.send(commandGet);
       const readStream = response.Body as Readable;
-      const parsedData = [];
 
       readStream
         .pipe(csv({ separator: ';' }))
-        .on('data', (data) => parsedData.push(data))
+        .on('data', async (product: Product) => {
+          const params = {
+            MessageBody: JSON.stringify(product),
+            QueueUrl: process.env.SQS_URL
+          };
+          try {
+            const data = await sqsClient.send(new SendMessageCommand(params));
+            console.log('Success, message sent. MessageID:', data.MessageId);
+          } catch (err) {
+            console.log('Error', err);
+          }
+        })
         .on('end', () => {
-          console.log(parsedData);
+          console.log('End of reading the product list.');
         });
 
       const commandCopy = new CopyObjectCommand({

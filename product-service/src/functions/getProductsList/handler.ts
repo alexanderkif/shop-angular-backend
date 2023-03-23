@@ -25,7 +25,7 @@ const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async
     }));
     const stocks = stocksData.Items.map(i => unmarshall(i));
 
-    products = products.map(p => ({...p, count: stocks.find(s => s.product_id === p.id).count || 0}));
+    products = products.map(p => ({...p, count: stocks.find(s => s.product_id === p.id)?.count || 0}));
 
     return formatJSONResponse(products, 200);
   } catch (error) {
