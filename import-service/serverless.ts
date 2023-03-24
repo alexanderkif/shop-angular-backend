@@ -36,7 +36,18 @@ const serverlessConfiguration: AWS = {
         Action: ['sqs:*'],
         Resource: 'arn:aws:sqs:eu-west-1:217207174269:s3ArtCatalogItemsQueue'
       }
-    ]
+    ],
+    httpApi: {
+      authorizers: {
+        basicAuthorizer: {
+          name: 'basicAuthorizer',
+          type: 'request',
+          functionArn: 'arn:aws:lambda:eu-west-1:217207174269:function:authorization-service-dev-basicAuthorizer',
+          enableSimpleResponses: true,
+          payloadVersion: '2.0'
+        }
+      }
+    }
   },
   // import the function via paths
   functions: { importProductsFile, importFileParser },
