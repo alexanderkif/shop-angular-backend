@@ -1,0 +1,11 @@
+{
+  "name": "authorization-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "deploy:auth": "npx sls deploy"
+  },
+  "author": "",
+  "license": "ISC"
+}
